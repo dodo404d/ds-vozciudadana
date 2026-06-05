@@ -2,7 +2,7 @@
 
 ## 1. Descripción general
 
-**VozCiudadana** es una aplicación web mini orientada a la gestión de propuestas legislativas ciudadanas. El sistema permite registrar propuestas, recolectar firmas de apoyo, agregar comentarios, registrar recursos de apoyo y derivar propuestas congeladas a una comisión desde el Panel Congreso.
+**VozCiudadana** es una aplicación web mini orientada a la gestión de propuestas legislativas ciudadanas. El sistema permite registrar propuestas, recolectar firmas de apoyo, agregar comentarios, registrar recursos de apoyo y preparar propuestas congeladas para revisión del Congreso.
 
 La aplicación se plantea como una versión académica y demostrativa. En el caso real, una iniciativa legislativa ciudadana requiere 25 000 firmas válidas; para efectos de prueba, el sistema usa un límite reducido de **3 firmas**.
 
@@ -42,8 +42,6 @@ VozCiudadana/
 │   │   ├── routes/
 │   │   ├── services/
 │   │   ├── patterns/
-│   │   │   ├── creational/
-│   │   │   └── structural/
 │   │   ├── utils/
 │   │   ├── app.ts
 │   │   └── server.ts
@@ -56,8 +54,10 @@ VozCiudadana/
 │   │   ├── components/
 │   │   ├── pages/
 │   │   ├── services/
-│   │   ├── types/
-│   │   └── styles/
+│   │   ├── styles/
+│   │   ├── types.ts
+│   │   ├── App.tsx
+│   │   └── main.tsx
 │   ├── .env
 │   ├── .env.example
 │   └── package.json
@@ -81,24 +81,11 @@ El backend usa **Express** con **TypeScript**. Su estructura separa responsabili
 | `patterns/` | Contendrá los patrones creacionales y estructurales aplicados. |
 | `utils/` | Contiene funciones auxiliares como generación de hash o manejo de fechas. |
 
-## 6. Backend implementado en el segundo avance
+## 6. Backend implementado hasta el segundo avance
 
-En el segundo avance del proyecto se implementó la base funcional del backend. Este avance permite registrar propuestas legislativas, listar propuestas, consultar una propuesta por identificador, registrar firmas ciudadanas, evitar firmas duplicadas, agregar comentarios, registrar recursos de apoyo y congelar una propuesta cuando alcanza el límite de demostración de **3 firmas**.
+En el segundo avance se implementó la base funcional del backend. Este avance permite registrar propuestas legislativas, listar propuestas, consultar una propuesta por identificador, registrar firmas ciudadanas, evitar firmas duplicadas, agregar comentarios, registrar recursos de apoyo y congelar una propuesta cuando alcanza el límite de demostración de **3 firmas**.
 
-La arquitectura backend mantiene la separación por capas:
-
-| Capa | Responsabilidad en el avance 02 |
-|---|---|
-| Controllers | Reciben las peticiones HTTP y devuelven respuestas al cliente. |
-| Routes | Organizan los endpoints de propuestas, firmas, comentarios, recursos y Congreso. |
-| Services | Ejecutan la lógica de negocio, como validar firmas y congelar expedientes. |
-| Repositories | Centralizan las operaciones de consulta y guardado en MongoDB. |
-| Models | Representan propuestas, firmas, comentarios, recursos y expedientes legislativos. |
-| Utils | Apoyan tareas internas como generación de hash criptográfico. |
-
-## 7. Estado de módulos en el segundo avance
-
-| Módulo backend | Estado en commit 02 |
+| Módulo backend | Estado |
 |---|---|
 | Propuestas legislativas | Implementado |
 | Firmas ciudadanas | Implementado |
@@ -108,24 +95,23 @@ La arquitectura backend mantiene la separación por capas:
 | Congelamiento por 3 firmas | Implementado |
 | Generación de hash criptográfico | Implementado |
 | Endpoints base del Congreso | Implementado de forma inicial |
-| Panel Congreso completo | Pendiente para commit 04 |
-| Patrones de diseño | Pendiente para commit 04 |
 
-## 8. Frontend
+## 7. Frontend implementado en el tercer avance
 
-El frontend usa **React + Vite**. La interfaz se divide en páginas y componentes reutilizables.
+En el tercer avance se implementó el flujo ciudadano del frontend. La interfaz permite navegar entre las pantallas principales, registrar propuestas, listar las propuestas existentes, abrir el detalle de una propuesta, firmar, comentar y agregar recursos de apoyo.
 
-| Carpeta | Función |
+| Pantalla | Estado en commit 03 |
 |---|---|
-| `pages/` | Pantallas principales: inicio, registro, propuestas, detalle y panel Congreso. |
-| `components/` | Elementos reutilizables como tarjetas, formularios y secciones. |
-| `services/` | Comunicación con la API del backend. |
-| `types/` | Tipos de datos usados por el frontend. |
-| `styles/` | Estilos globales de la aplicación. |
+| Inicio | Implementada |
+| Registrar propuesta | Implementada con placeholders orientativos |
+| Lista de propuestas | Implementada sin botón adicional de nueva propuesta |
+| Detalle de propuesta | Implementado con recuadro ancho y formularios debajo |
+| Firmar propuesta | Implementado en el detalle |
+| Comentar | Implementado en el detalle |
+| Agregar recurso | Implementado en el detalle |
+| Panel Congreso | Pendiente para commit 04 |
 
-En el segundo avance, el frontend se mantiene como base inicial. El flujo ciudadano completo será desarrollado en el tercer avance.
-
-## 9. Base de datos
+## 8. Base de datos
 
 La base de datos oficial del proyecto debe llamarse:
 
@@ -143,53 +129,30 @@ Colecciones principales:
 | `resources` | Guarda recursos de apoyo. |
 | `legislativefiles` | Guarda expedientes congelados. |
 
-## 10. Flujo principal del sistema
+## 9. Flujo ciudadano implementado
 
 ```txt
+Inicio
+  ↓
 Registrar propuesta
   ↓
-Listar propuestas
+Aviso de registro correcto
+  ↓
+Redirección a Propuestas
+  ↓
+Lista de propuestas
   ↓
 Ver detalle
   ↓
 Firmar / comentar / agregar recurso
   ↓
-Llegar a 3 firmas en demo
-  ↓
-Congelar expediente
-  ↓
-Generar hash criptográfico
-  ↓
-Mostrar en Panel Congreso
-  ↓
-Asignar comisión
-```
-
-## 11. Flujo implementado hasta el segundo avance
-
-```txt
-Registrar propuesta por API
-  ↓
-Listar propuestas por API
-  ↓
-Consultar propuesta por API
-  ↓
-Registrar firma por API
-  ↓
-Validar duplicado por DNI
-  ↓
-Agregar comentario o recurso por API
-  ↓
 Al llegar a 3 firmas, congelar expediente
-  ↓
-Generar hash criptográfico
 ```
 
-## 12. Consideraciones de demostración
+## 10. Consideraciones de demostración
 
 - La app usa 3 firmas como límite para facilitar la exposición.
 - La validación de firmas es simulada.
-- El panel Congreso usa acceso simple de demostración.
 - El sistema no se conecta con RENIEC ni con servicios oficiales.
+- El Panel Congreso completo y los patrones de diseño se incorporarán en el cuarto avance.
 - El objetivo principal es demostrar arquitectura, flujo funcional y patrones de diseño.
-- Los patrones creacionales y estructurales se documentarán cuando sean incorporados en el avance correspondiente.

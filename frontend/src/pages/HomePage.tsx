@@ -1,27 +1,29 @@
-function HomePage() {
-  return (
-    <main className="page-shell">
-      <nav className="navbar">
-        <strong>VozCiudadana</strong>
-        <span>Mini · Lite</span>
-      </nav>
+import type { ViewName } from '../App';
 
-      <section className="hero-card">
-        <p className="eyebrow">Plataforma digital mini</p>
-        <h1>VozCiudadana</h1>
-        <p className="hero-text">
-          Base inicial para una aplicación de propuestas legislativas ciudadanas.
-          En los siguientes avances se agregarán propuestas, firmas, comentarios,
-          recursos, patrones de diseño y panel Congreso.
-        </p>
-        <div className="button-row">
-          <button>Registrar propuesta</button>
-          <button className="secondary">Ver propuestas</button>
-          <button className="secondary">Panel Congreso</button>
-        </div>
-      </section>
-    </main>
-  );
+interface HomePageProps {
+  onNavigate: (view: ViewName) => void;
 }
 
-export default HomePage;
+export function HomePage({ onNavigate }: HomePageProps) {
+  return (
+    <section className="hero panel">
+      <p className="eyebrow">PLATAFORMA DIGITAL MINI</p>
+      <h1>VozCiudadana</h1>
+      <p className="hero-text">
+        Sistema sencillo para registrar propuestas legislativas ciudadanas, recolectar firmas,
+        agregar comentarios y preparar un expediente congelado para revisión del Congreso.
+      </p>
+      <div className="hero-actions">
+        <button className="primary-button" type="button" onClick={() => onNavigate('create')}>
+          Registrar propuesta
+        </button>
+        <button className="secondary-button" type="button" onClick={() => onNavigate('proposals')}>
+          Ver propuestas
+        </button>
+        <button className="secondary-button" type="button" onClick={() => onNavigate('congress')}>
+          Panel Congreso
+        </button>
+      </div>
+    </section>
+  );
+}
