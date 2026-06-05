@@ -7,8 +7,7 @@ router.get('/health', (_req, res) => {
     status: 'ok',
     project: 'VozCiudadana',
     database: 'vozciudadana',
-    signatureLimit: Number(process.env.SIGNATURE_LIMIT || 3),
-    message: 'Backend base funcionando correctamente'
+    signatureLimitDemo: Number(process.env.SIGNATURE_LIMIT ?? 3)
   });
 });
 

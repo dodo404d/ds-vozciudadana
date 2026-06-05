@@ -1,0 +1,137 @@
+{
+  "info": {
+    "name": "VozCiudadana - Commit 02 Backend",
+    "description": "Pruebas mínimas del backend: propuestas, firmas, comentarios, recursos y congelamiento demo con 3 firmas.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000/api" },
+    { "key": "proposalId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/health"
+      }
+    },
+    {
+      "name": "Crear propuesta",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Ley para promover la participación vecinal digital\",\n  \"author\": \"Colectivo Ciudadanos Activos\",\n  \"summary\": \"Propuesta para facilitar canales digitales de participación ciudadana.\",\n  \"legalText\": \"Artículo 1. Créase un canal digital de propuestas ciudadanas para gobiernos locales.\",\n  \"category\": \"Participación ciudadana\",\n  \"proposalType\": \"Nueva ley\"\n}"
+        },
+        "url": "{{baseUrl}}/proposals"
+      }
+    },
+    {
+      "name": "Listar propuestas",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/proposals"
+      }
+    },
+    {
+      "name": "Ver detalle de propuesta",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/proposals/{{proposalId}}"
+      }
+    },
+    {
+      "name": "Firmar propuesta - firma 1",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"citizenName\": \"María Pérez Doy\",\n  \"dni\": \"12345678\",\n  \"email\": \"mili@gmail.com\"\n}"
+        },
+        "url": "{{baseUrl}}/proposals/{{proposalId}}/signatures"
+      }
+    },
+    {
+      "name": "Firmar propuesta - firma duplicada",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"citizenName\": \"María Pérez Doy\",\n  \"dni\": \"12345678\",\n  \"email\": \"mili@gmail.com\"\n}"
+        },
+        "url": "{{baseUrl}}/proposals/{{proposalId}}/signatures"
+      }
+    },
+    {
+      "name": "Agregar comentario",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"citizenName\": \"Carlos Rivera\",\n  \"content\": \"La propuesta debería incluir mecanismos de seguimiento ciudadano.\"\n}"
+        },
+        "url": "{{baseUrl}}/proposals/{{proposalId}}/comments"
+      }
+    },
+    {
+      "name": "Agregar recurso",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Informe de participación ciudadana\",\n  \"url\": \"https://ejemplo.pe/informe-participacion.pdf\",\n  \"description\": \"Documento de apoyo para sustentar la propuesta legislativa.\"\n}"
+        },
+        "url": "{{baseUrl}}/proposals/{{proposalId}}/resources"
+      }
+    },
+    {
+      "name": "Firmar propuesta - firma 2",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"citizenName\": \"Ana Torres\",\n  \"dni\": \"87654321\",\n  \"email\": \"ana@gmail.com\"\n}"
+        },
+        "url": "{{baseUrl}}/proposals/{{proposalId}}/signatures"
+      }
+    },
+    {
+      "name": "Firmar propuesta - firma 3 y congelamiento",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"citizenName\": \"Luis Ramírez\",\n  \"dni\": \"11223344\",\n  \"email\": \"luis@gmail.com\"\n}"
+        },
+        "url": "{{baseUrl}}/proposals/{{proposalId}}/signatures"
+      }
+    },
+    {
+      "name": "Listar expedientes congelados Congreso",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/congress/legislative-files"
+      }
+    },
+    {
+      "name": "Asignar comisión desde Congreso",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"commission\": \"Comisión de Constitución y Reglamento\"\n}"
+        },
+        "url": "{{baseUrl}}/congress/proposals/{{proposalId}}/commission"
+      }
+    }
+  ]
+}

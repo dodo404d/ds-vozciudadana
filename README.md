@@ -1,55 +1,64 @@
 # VozCiudadana
 
-**VozCiudadana** es una aplicación web mini para registrar propuestas legislativas ciudadanas, preparar el flujo de recolección de firmas y sentar la base para un expediente revisable por el Congreso.
+**VozCiudadana** es una aplicación web mini para registrar propuestas legislativas ciudadanas, recolectar firmas de apoyo, recibir comentarios y recursos, y generar un expediente congelado para revisión del Congreso.
 
-Este ZIP corresponde al primer avance del proyecto:
-
-```txt
-Commit 01: chore: inicializar proyecto VozCiudadana
-```
-
-## Contenido de este avance
-
-- Proyecto renombrado correctamente como **VozCiudadana**.
-- Base de datos configurada como **vozciudadana**.
-- Backend base con Express, TypeScript y MongoDB.
-- Frontend base con React, Vite y TypeScript.
-- Variables de entorno incluidas para ejecución local.
-- Documentación inicial del avance y de las capturas mínimas para el registro de commits.
-
-## Estructura
+Este ZIP corresponde al segundo avance del proyecto:
 
 ```txt
-VozCiudadana/
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   ├── routes/
-│   │   ├── app.ts
-│   │   └── server.ts
-│   ├── .env
-│   ├── .env.example
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── frontend/
-│   ├── src/
-│   │   ├── pages/
-│   │   ├── styles/
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   ├── .env
-│   ├── .env.example
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── docs/
-└── postman/
+Commit 02: feat: implementar backend de propuestas ciudadanas
 ```
 
-## Ejecución local
+## Estado del proyecto en este avance
 
-### Backend
+En este segundo avance ya se implementa el backend principal:
+
+- Registro de propuestas legislativas.
+- Listado y detalle de propuestas.
+- Registro de firmas ciudadanas.
+- Validación básica de firma.
+- Bloqueo de firmas duplicadas por DNI.
+- Registro de comentarios.
+- Registro de recursos de apoyo.
+- Congelamiento automático al llegar a 3 firmas.
+- Hash criptográfico del expediente.
+- Consulta de expedientes congelados para Congreso.
+- Asignación básica de comisión desde backend.
+
+El frontend todavía se mantiene como base inicial. En el siguiente avance se desarrollará el flujo ciudadano visual.
+
+## Tecnologías
+
+```txt
+Backend: Express + TypeScript + MongoDB
+Frontend: React + Vite
+Base de datos: MongoDB local
+```
+
+## Base de datos
+
+La base de datos configurada es:
+
+```txt
+vozciudadana
+```
+
+La conexión local está en:
+
+```env
+MONGO_URI=mongodb://localhost:27017/vozciudadana
+```
+
+## Límite de firmas de demostración
+
+El caso real indica 25 000 firmas válidas. Para la demostración académica se usa un límite reducido:
+
+```env
+SIGNATURE_LIMIT=3
+```
+
+Así se puede probar el congelamiento del expediente con solo tres firmas válidas.
+
+## Ejecutar backend
 
 ```bash
 cd backend
@@ -57,19 +66,19 @@ npm install
 npm run dev
 ```
 
-El backend se ejecuta en:
+Backend:
 
 ```txt
 http://localhost:4000
 ```
 
-Ruta de prueba:
+Health check:
 
 ```txt
-GET http://localhost:4000/api/health
+http://localhost:4000/api/health
 ```
 
-### Frontend
+## Ejecutar frontend
 
 ```bash
 cd frontend
@@ -77,13 +86,15 @@ npm install
 npm run dev
 ```
 
-El frontend se ejecuta en:
+Frontend:
 
 ```txt
 http://localhost:5173
 ```
 
-## Variables de entorno principales
+## Variables de entorno incluidas
+
+Este proyecto incluye `.env` y `.env.example` porque es una versión académica local sin secretos reales.
 
 Backend:
 
@@ -102,6 +113,19 @@ Frontend:
 VITE_API_URL=http://localhost:4000/api
 ```
 
-## Nota sobre la demo
+## Capturas sugeridas para este avance
 
-El caso real menciona 25 000 firmas válidas. Para la demostración académica, el sistema trabajará con un límite reducido de **3 firmas**.
+Para la documentación global de commits:
+
+```txt
+commit_02_resultado_backend
+commit_02_terminal_commit
+```
+
+## Mensaje de commit recomendado
+
+```bash
+git add .
+git commit -m "feat: implementar backend de propuestas ciudadanas"
+git log --oneline -1
+```
