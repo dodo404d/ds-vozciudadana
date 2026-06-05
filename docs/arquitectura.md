@@ -31,12 +31,13 @@ MongoDB
 | Documentación | Sustentar requisitos, casos de uso, casos de prueba y patrones aplicados. |
 | Postman | Probar los endpoints principales del backend. |
 
-## 4. Estructura base del proyecto
+## 4. Estructura del proyecto
 
 ```txt
 VozCiudadana/
 ├── backend/
 │   ├── src/
+│   │   ├── config/
 │   │   ├── controllers/
 │   │   ├── models/
 │   │   ├── repositories/
@@ -61,7 +62,6 @@ VozCiudadana/
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── components/
 │   │   ├── pages/
 │   │   ├── services/
 │   │   ├── styles/
@@ -77,25 +77,24 @@ VozCiudadana/
 └── README.md
 ```
 
-## 5. Backend
+## 5. Arquitectura del backend
 
 El backend usa **Express** con **TypeScript**. Su estructura separa responsabilidades para que el sistema sea más fácil de mantener.
 
 | Carpeta | Función |
 |---|---|
+| `config/` | Configura la conexión con MongoDB. |
 | `controllers/` | Recibe las peticiones HTTP y devuelve respuestas. |
 | `routes/` | Define las rutas de la API. |
 | `services/` | Contiene la lógica principal del negocio. |
 | `repositories/` | Encapsula el acceso a MongoDB. |
 | `models/` | Define las entidades guardadas en la base de datos. |
 | `patterns/` | Contiene los patrones creacionales y estructurales aplicados. |
-| `utils/` | Contiene funciones auxiliares como generación de hash o configuración. |
+| `utils/` | Contiene funciones auxiliares como generación de hash y configuración. |
 
-## 6. Backend implementado hasta el segundo avance
+## 6. Módulos backend implementados
 
-En el segundo avance se implementó la base funcional del backend. Este avance permite registrar propuestas legislativas, listar propuestas, consultar una propuesta por identificador, registrar firmas ciudadanas, evitar firmas duplicadas, agregar comentarios, registrar recursos de apoyo y congelar una propuesta cuando alcanza el límite de demostración de **3 firmas**.
-
-| Módulo backend | Estado |
+| Módulo backend | Estado final |
 |---|---|
 | Propuestas legislativas | Implementado |
 | Firmas ciudadanas | Implementado |
@@ -104,41 +103,33 @@ En el segundo avance se implementó la base funcional del backend. Este avance p
 | Recursos de apoyo | Implementado |
 | Congelamiento por 3 firmas | Implementado |
 | Generación de hash criptográfico | Implementado |
-| Endpoints base del Congreso | Implementado |
+| Endpoints del Panel Congreso | Implementado |
+| Asignación de comisión | Implementado |
+| Patrones creacionales | Implementados |
+| Patrones estructurales | Implementados |
 
-## 7. Frontend implementado en el tercer avance
+## 7. Arquitectura del frontend
 
-En el tercer avance se implementó el flujo ciudadano del frontend. La interfaz permite navegar entre las pantallas principales, registrar propuestas, listar las propuestas existentes, abrir el detalle de una propuesta, firmar, comentar y agregar recursos de apoyo.
+El frontend usa **React + Vite**. La interfaz se organiza en páginas principales y una capa de servicios para comunicarse con el backend.
 
-| Pantalla | Estado en commit 03 |
+| Carpeta o archivo | Función |
 |---|---|
-| Inicio | Implementada |
-| Registrar propuesta | Implementada con placeholders orientativos |
-| Lista de propuestas | Implementada sin botón adicional de nueva propuesta |
-| Detalle de propuesta | Implementado con recuadro ancho y formularios debajo |
-| Firmar propuesta | Implementado en el detalle |
-| Comentar | Implementado en el detalle |
-| Agregar recurso | Implementado en el detalle |
-| Panel Congreso | Pendiente para commit 04 |
+| `pages/` | Pantallas principales: inicio, registro, propuestas, detalle y panel Congreso. |
+| `services/` | Comunicación con la API del backend. |
+| `styles/` | Estilos globales de la aplicación. |
+| `types.ts` | Tipos de datos usados por el frontend. |
+| `App.tsx` | Organización principal de navegación. |
+| `main.tsx` | Punto de entrada de React. |
 
-## 8. Panel Congreso y patrones incorporados en el cuarto avance
+## 8. Pantallas principales
 
-En el cuarto avance se implementó el Panel Congreso y se incorporaron los patrones de diseño solicitados. El panel permite revisar expedientes congelados, cambiar entre vista de tarjetas y vista de lista, ver el detalle de la ley propuesta, seleccionar una comisión mediante un desplegable y derivar la propuesta.
-
-| Elemento | Estado en commit 04 |
+| Pantalla | Función |
 |---|---|
-| Vista de tarjetas del Panel Congreso | Implementada |
-| Vista de lista resumida | Implementada |
-| Botón Ver detalle | Implementado |
-| Desplegable de comisiones | Implementado |
-| Asignación de comisión | Implementada |
-| Factory Method | Implementado |
-| Builder | Implementado |
-| Singleton | Implementado |
-| Facade | Implementado |
-| Adapter | Implementado |
-| Proxy | Implementado |
-| Composite | Implementado |
+| Inicio | Presenta el sistema y permite acceder a los módulos principales. |
+| Registrar propuesta | Permite registrar una propuesta legislativa con placeholders orientativos. |
+| Propuestas | Lista las propuestas registradas sin botón adicional de nueva propuesta. |
+| Detalle de propuesta | Muestra la ley propuesta, firmas, comentarios, recursos y formularios de apoyo. |
+| Panel Congreso | Permite revisar propuestas congeladas y derivarlas a una comisión. |
 
 ## 9. Base de datos
 
@@ -188,7 +179,16 @@ Seleccionar comisión desde desplegable
 Asignar comisión
 ```
 
-## 11. Consideraciones de demostración
+## 11. Patrones integrados en la arquitectura
+
+| Tipo | Patrones usados |
+|---|---|
+| Creacionales | Factory Method, Builder y Singleton. |
+| Estructurales | Facade, Adapter, Proxy y Composite. |
+
+Estos patrones se ubican en la carpeta `backend/src/patterns/` y se documentan de forma específica en `patrones_creacionales.md` y `patrones_estructurales.md`.
+
+## 12. Consideraciones de demostración
 
 - La app usa 3 firmas como límite para facilitar la exposición.
 - La validación de firmas es simulada.

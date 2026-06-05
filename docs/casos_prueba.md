@@ -2,7 +2,7 @@
 
 ## 1. Objetivo
 
-Definir pruebas funcionales mínimas para comprobar que la aplicación VozCiudadana cumple el flujo principal: registrar propuestas, consultarlas, firmarlas, agregar aportes, congelarlas al llegar al límite de demostración y derivarlas desde el Panel Congreso.
+Definir pruebas funcionales mínimas para comprobar que la aplicación **VozCiudadana** cumple el flujo principal: registrar propuestas, consultarlas, firmarlas, agregar aportes, congelarlas al llegar al límite de demostración y derivarlas desde el Panel Congreso.
 
 ## 2. Consideraciones de prueba
 
@@ -10,11 +10,11 @@ Definir pruebas funcionales mínimas para comprobar que la aplicación VozCiudad
 - La base de datos debe llamarse **vozciudadana**.
 - La validación de identidad es simulada.
 - Se recomienda iniciar con la base limpia para capturar evidencias ordenadas.
-- Desde el cuarto avance, el Panel Congreso y los patrones de diseño ya se encuentran incorporados.
+- Las pruebas pueden ejecutarse desde el frontend y también desde Postman.
 
-## 3. Estado de pruebas por avance
+## 3. Estado final de pruebas
 
-| Caso de prueba | Estado en commit 04 |
+| Caso de prueba | Estado final |
 |---|---|
 | CP-01 Registrar propuesta válida | Implementado |
 | CP-02 Validar campos obligatorios | Implementado |
@@ -108,7 +108,7 @@ Definir pruebas funcionales mínimas para comprobar que la aplicación VozCiudad
 | Objetivo | Verificar que la propuesta se congele al alcanzar el límite de demostración. |
 | Datos de entrada | Tres firmas válidas con DNI distintos. |
 | Pasos | 1. Registrar tres firmas válidas. 2. Observar el estado de la propuesta. |
-| Resultado esperado | La propuesta cambia a congelada, se genera hash criptográfico y aparece en el Panel Congreso. |
+| Resultado esperado | La propuesta cambia a estado congelada, se genera hash criptográfico y aparece en el Panel Congreso. |
 
 ## CP-10: Ver propuesta en Panel Congreso
 
@@ -116,8 +116,8 @@ Definir pruebas funcionales mínimas para comprobar que la aplicación VozCiudad
 |---|---|
 | Objetivo | Verificar que el Panel Congreso muestre propuestas congeladas. |
 | Datos de entrada | Propuesta congelada. |
-| Pasos | 1. Entrar al Panel Congreso. 2. Revisar la vista de tarjetas. |
-| Resultado esperado | Se visualiza la propuesta, firmas, hash, estado y acciones disponibles. |
+| Pasos | 1. Entrar al Panel Congreso. 2. Revisar la propuesta. 3. Presionar Ver detalle. |
+| Resultado esperado | Se visualiza la propuesta, firmas, hash, estado, comentarios, recursos y acciones disponibles. |
 
 ## CP-11: Asignar comisión
 

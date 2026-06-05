@@ -1,6 +1,12 @@
 # Postman - VozCiudadana
 
-Este avance incluye una colección de pruebas mínimas para validar el backend de propuestas, firmas, comentarios, recursos, congelamiento y operaciones básicas del Panel Congreso.
+La carpeta `postman/` contiene una colección final para probar el backend de VozCiudadana.
+
+Archivo incluido:
+
+```txt
+VozCiudadana_final.postman_collection.json
+```
 
 ## Uso recomendado
 
