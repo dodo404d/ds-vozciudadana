@@ -57,7 +57,8 @@ export function CongressPanelPage() {
   };
 
   const handleAssignCommission = async (file: LegislativeFile) => {
-    const commission = selectedCommissions[file.proposalId] ?? '';
+    const commission = (selectedCommissions[file.proposalId] ?? file.commissionAssigned ?? '').trim();
+
     if (!commission) {
       setNotice({ type: 'error', text: 'Debe seleccionar una comisión antes de asignar.' });
       return;
@@ -154,7 +155,7 @@ export function CongressPanelPage() {
                   </button>
 
                   <select
-                    value={selectedCommissions[file.proposalId] ?? file.commissionAssigned ?? ''}
+                    value={selectedCommissions[file.proposalId] ?? ''}
                     onChange={(event) => handleCommissionChange(file.proposalId, event.target.value)}
                     disabled={file.status === 'DERIVADA_COMISION'}
                   >
