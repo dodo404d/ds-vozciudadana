@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 import { ResourceService } from '../services/ResourceService';
+import { CitizenProposalFacade } from '../patterns/structural/facade/CitizenProposalFacade';
 import { getErrorResponse } from '../utils/httpError';
 
 export class ResourceController {
   private resourceService = new ResourceService();
+  private citizenProposalFacade = new CitizenProposalFacade();
 
   create = async (req: Request, res: Response): Promise<void> => {
     try {
-      const resource = await this.resourceService.create(String(req.params.proposalId), req.body);
+      const resource = await this.citizenProposalFacade.addResource(String(req.params.proposalId), req.body);
       res.status(201).json({
         message: 'Recurso registrado correctamente',
         data: resource

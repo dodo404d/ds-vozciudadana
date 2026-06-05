@@ -10,26 +10,24 @@ Definir pruebas funcionales mínimas para comprobar que la aplicación VozCiudad
 - La base de datos debe llamarse **vozciudadana**.
 - La validación de identidad es simulada.
 - Se recomienda iniciar con la base limpia para capturar evidencias ordenadas.
-- En el tercer avance ya se pueden probar las funciones ciudadanas desde el frontend.
+- Desde el cuarto avance, el Panel Congreso y los patrones de diseño ya se encuentran incorporados.
 
-## 3. Pruebas correspondientes al tercer avance
+## 3. Estado de pruebas por avance
 
-En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas del Panel Congreso completo se realizarán en el cuarto avance.
-
-| Caso de prueba | Estado en commit 03 |
+| Caso de prueba | Estado en commit 04 |
 |---|---|
-| CP-01 Registrar propuesta válida | Probable desde frontend |
-| CP-02 Validar campos obligatorios | Probable desde frontend |
-| CP-03 Listar propuestas | Probable desde frontend |
-| CP-04 Ver detalle de propuesta | Probable desde frontend |
-| CP-05 Registrar firma válida | Probable desde frontend |
-| CP-06 Rechazar firma duplicada | Probable desde frontend |
-| CP-07 Agregar comentario | Probable desde frontend |
-| CP-08 Agregar recurso de apoyo | Probable desde frontend |
-| CP-09 Congelar propuesta al llegar a 3 firmas | Probable desde frontend/API |
-| CP-10 Ver propuesta en Panel Congreso | Pendiente para avance posterior |
-| CP-11 Asignar comisión | Pendiente para avance posterior |
-| CP-12 Cambiar vista del Panel Congreso | Pendiente para avance posterior |
+| CP-01 Registrar propuesta válida | Implementado |
+| CP-02 Validar campos obligatorios | Implementado |
+| CP-03 Listar propuestas | Implementado |
+| CP-04 Ver detalle de propuesta | Implementado |
+| CP-05 Registrar firma válida | Implementado |
+| CP-06 Rechazar firma duplicada | Implementado |
+| CP-07 Agregar comentario | Implementado |
+| CP-08 Agregar recurso de apoyo | Implementado |
+| CP-09 Congelar propuesta al llegar a 3 firmas | Implementado |
+| CP-10 Ver propuesta en Panel Congreso | Implementado |
+| CP-11 Asignar comisión | Implementado |
+| CP-12 Cambiar vista del Panel Congreso | Implementado |
 
 ## CP-01: Registrar propuesta válida
 
@@ -39,7 +37,6 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Título, autor, categoría, tipo, resumen y texto normativo completos. |
 | Pasos | 1. Entrar a Registrar propuesta. 2. Completar los campos. 3. Presionar Registrar propuesta. |
 | Resultado esperado | Aparece un aviso con check indicando que la propuesta se registró correctamente y luego se redirige a Propuestas. |
-| Estado en commit 03 | Probable desde frontend. |
 
 ## CP-02: Validar campos obligatorios
 
@@ -49,7 +46,6 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Formulario con uno o más campos vacíos. |
 | Pasos | 1. Entrar a Registrar propuesta. 2. Dejar campos obligatorios vacíos. 3. Intentar registrar. |
 | Resultado esperado | El sistema solicita completar los campos requeridos. |
-| Estado en commit 03 | Probable desde frontend. |
 
 ## CP-03: Listar propuestas
 
@@ -59,7 +55,6 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Una propuesta previamente registrada. |
 | Pasos | 1. Entrar a Propuestas. 2. Revisar la lista. |
 | Resultado esperado | Se muestra la propuesta creada, el aviso informativo y el botón Ver detalle. No aparece el botón Nueva propuesta. |
-| Estado en commit 03 | Probable desde frontend. |
 
 ## CP-04: Ver detalle de propuesta
 
@@ -69,7 +64,6 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Propuesta registrada. |
 | Pasos | 1. Entrar a Propuestas. 2. Presionar Ver detalle. |
 | Resultado esperado | Se muestra un recuadro compacto y ancho con título, resumen, texto normativo, estado y firmas. Debajo aparecen Firmar, Comentar y Agregar recurso. |
-| Estado en commit 03 | Probable desde frontend. |
 
 ## CP-05: Registrar firma válida
 
@@ -79,7 +73,6 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Nombre y apellidos, DNI y correo. |
 | Pasos | 1. Abrir detalle. 2. Completar formulario de firma. 3. Presionar Registrar firma. |
 | Resultado esperado | La firma se registra y el contador aumenta, por ejemplo de 0/3 a 1/3. |
-| Estado en commit 03 | Probable desde frontend. |
 
 ## CP-06: Rechazar firma duplicada
 
@@ -89,7 +82,6 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Mismo DNI usado en una firma anterior. |
 | Pasos | 1. Abrir detalle. 2. Intentar firmar otra vez con el mismo DNI. |
 | Resultado esperado | El sistema rechaza la firma duplicada y no aumenta el contador. |
-| Estado en commit 03 | Probable desde frontend. |
 
 ## CP-07: Agregar comentario
 
@@ -99,7 +91,6 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Nombre del ciudadano y comentario. |
 | Pasos | 1. Abrir detalle. 2. Completar formulario Comentar. 3. Presionar Agregar comentario. |
 | Resultado esperado | El comentario aparece en la sección Comentarios. |
-| Estado en commit 03 | Probable desde frontend. |
 
 ## CP-08: Agregar recurso de apoyo
 
@@ -109,7 +100,6 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Título, enlace y descripción del recurso. |
 | Pasos | 1. Abrir detalle. 2. Completar formulario Agregar recurso. 3. Presionar Agregar recurso. |
 | Resultado esperado | El recurso aparece en la sección Recursos de apoyo. |
-| Estado en commit 03 | Probable desde frontend. |
 
 ## CP-09: Congelar propuesta al llegar a 3 firmas
 
@@ -118,8 +108,7 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Objetivo | Verificar que la propuesta se congele al alcanzar el límite de demostración. |
 | Datos de entrada | Tres firmas válidas con DNI distintos. |
 | Pasos | 1. Registrar tres firmas válidas. 2. Observar el estado de la propuesta. |
-| Resultado esperado | La propuesta cambia a congelada o derivable, se genera hash criptográfico y aparece como expediente congelado. |
-| Estado en commit 03 | Probable desde frontend/API. |
+| Resultado esperado | La propuesta cambia a congelada, se genera hash criptográfico y aparece en el Panel Congreso. |
 
 ## CP-10: Ver propuesta en Panel Congreso
 
@@ -127,9 +116,8 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 |---|---|
 | Objetivo | Verificar que el Panel Congreso muestre propuestas congeladas. |
 | Datos de entrada | Propuesta congelada. |
-| Pasos | 1. Entrar al Panel Congreso. 2. Revisar la propuesta. |
+| Pasos | 1. Entrar al Panel Congreso. 2. Revisar la vista de tarjetas. |
 | Resultado esperado | Se visualiza la propuesta, firmas, hash, estado y acciones disponibles. |
-| Estado en commit 03 | Pendiente para avance posterior. |
 
 ## CP-11: Asignar comisión
 
@@ -139,7 +127,6 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Comisión seleccionada desde el desplegable. |
 | Pasos | 1. Entrar al Panel Congreso. 2. Seleccionar comisión. 3. Presionar Asignar comisión. |
 | Resultado esperado | La propuesta queda derivada a la comisión seleccionada. |
-| Estado en commit 03 | Pendiente para avance posterior. |
 
 ## CP-12: Cambiar vista del Panel Congreso
 
@@ -149,4 +136,3 @@ En el tercer avance se validan el backend y el frontend ciudadano. Las pruebas d
 | Datos de entrada | Propuestas congeladas. |
 | Pasos | 1. Entrar al Panel Congreso. 2. Cambiar entre Vista tarjetas y Vista lista. |
 | Resultado esperado | Ambas vistas muestran la información de manera correcta. |
-| Estado en commit 03 | Pendiente para avance posterior. |

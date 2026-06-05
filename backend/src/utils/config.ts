@@ -1,4 +1,9 @@
+import { SystemConfigSingleton } from '../patterns/creational/singleton/SystemConfigSingleton';
+
 export function getSignatureLimit(): number {
-  const parsedLimit = Number(process.env.SIGNATURE_LIMIT ?? 3);
-  return Number.isFinite(parsedLimit) && parsedLimit > 0 ? parsedLimit : 3;
+  return SystemConfigSingleton.getInstance().getSignatureLimit();
+}
+
+export function getAvailableCommissions(): string[] {
+  return SystemConfigSingleton.getInstance().getAvailableCommissions();
 }

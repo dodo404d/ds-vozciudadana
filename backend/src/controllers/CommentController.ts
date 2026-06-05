@@ -1,13 +1,15 @@
 import { Request, Response } from 'express';
 import { CommentService } from '../services/CommentService';
+import { CitizenProposalFacade } from '../patterns/structural/facade/CitizenProposalFacade';
 import { getErrorResponse } from '../utils/httpError';
 
 export class CommentController {
   private commentService = new CommentService();
+  private citizenProposalFacade = new CitizenProposalFacade();
 
   create = async (req: Request, res: Response): Promise<void> => {
     try {
-      const comment = await this.commentService.create(String(req.params.proposalId), req.body);
+      const comment = await this.citizenProposalFacade.addComment(String(req.params.proposalId), req.body);
       res.status(201).json({
         message: 'Comentario registrado correctamente',
         data: comment

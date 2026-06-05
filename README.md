@@ -1,11 +1,11 @@
 # VozCiudadana
 
-**VozCiudadana** es una aplicación web mini para registrar propuestas legislativas ciudadanas, recolectar firmas de apoyo, agregar comentarios y recursos, y preparar expedientes congelados para revisión del Congreso.
+**VozCiudadana** es una aplicación web mini para registrar propuestas legislativas ciudadanas, recolectar firmas de apoyo, agregar comentarios y recursos, congelar expedientes al alcanzar el límite de demostración y derivarlos a una comisión desde el Panel Congreso.
 
-Este ZIP corresponde al tercer avance del proyecto:
+Este ZIP corresponde al cuarto avance del proyecto:
 
 ```txt
-Commit 03: feat: implementar frontend ciudadano
+Commit 04: feat: agregar panel Congreso y patrones de diseño
 ```
 
 ## Contenido de este avance
@@ -19,7 +19,15 @@ Commit 03: feat: implementar frontend ciudadano
 - Registro de firmas, comentarios y recursos desde el frontend.
 - Límite de demostración de 3 firmas.
 - Congelamiento automático al alcanzar el límite.
-- Documentación base limpia en Markdown.
+- Hash criptográfico del expediente congelado.
+- Panel Congreso con vista de tarjetas.
+- Panel Congreso con vista de lista resumida.
+- Visualización del detalle de la ley propuesta desde el Panel Congreso.
+- Selección de comisión mediante desplegable.
+- Asignación de comisión.
+- Patrones creacionales: Factory Method, Builder y Singleton.
+- Patrones estructurales: Facade, Adapter, Proxy y Composite.
+- Documentación limpia en Markdown.
 
 ## Estructura
 
@@ -43,12 +51,14 @@ SIGNATURE_LIMIT=3
 CONGRESS_ADMIN_USER=admin
 CONGRESS_ADMIN_PASSWORD=admin123
 JWT_SECRET=vozciudadana_demo_secret
+CONGRESS_ACCESS_TOKEN=demo-congreso
 ```
 
 ### Frontend
 
 ```env
 VITE_API_URL=http://localhost:4000/api
+VITE_CONGRESS_ACCESS_TOKEN=demo-congreso
 ```
 
 ## Ejecución local
@@ -83,17 +93,17 @@ http://localhost:5173
 
 ## Capturas sugeridas para este commit
 
-Para documentar el avance del commit 03, tomar solo dos capturas:
+Para documentar el avance del commit 04, tomar solo dos capturas:
 
 | Captura | Nombre sugerido |
 |---|---|
-| Frontend ciudadano ejecutándose con lista o detalle de propuesta | `commit_03_resultado_frontend_ciudadano` |
-| Terminal con el commit y `git log --oneline -1` | `commit_03_terminal_commit` |
+| Panel Congreso ejecutándose, mostrando vista tarjetas/lista o selector de comisión | `commit_04_resultado_panel_patrones` |
+| Terminal con el commit y `git log --oneline -1` | `commit_04_terminal_commit` |
 
 ## Commit sugerido
 
 ```bash
 git add .
-git commit -m "feat: implementar frontend ciudadano"
+git commit -m "feat: agregar panel Congreso y patrones de diseño"
 git log --oneline -1
 ```

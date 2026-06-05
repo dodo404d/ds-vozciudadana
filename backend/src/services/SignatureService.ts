@@ -4,6 +4,7 @@ import { SignatureRepository } from '../repositories/SignatureRepository';
 import { hashDni } from '../utils/hash';
 import { HttpError } from '../utils/httpError';
 import { ProposalFreezeService } from './ProposalFreezeService';
+import { SignatureValidatorAdapter } from '../patterns/structural/adapter/SignatureValidatorAdapter';
 
 export interface CreateSignatureRequest {
   citizenName?: string;
@@ -15,13 +16,14 @@ export class SignatureService {
   private proposalRepository = new ProposalRepository();
   private signatureRepository = new SignatureRepository();
   private proposalFreezeService = new ProposalFreezeService();
+  private signatureValidatorAdapter = new SignatureValidatorAdapter();
 
   async create(proposalIdText: string, data: CreateSignatureRequest) {
     if (!Types.ObjectId.isValid(proposalIdText)) {
       throw new HttpError(400, 'Identificador de propuesta no válido');
     }
 
-    this.validateSignatureData(data);
+    const validatedSignature = this.signatureValidatorAdapter.validate(data);
 
     const proposal = await this.proposalRepository.findById(proposalIdText);
     if (!proposal) {
@@ -32,7 +34,7 @@ export class SignatureService {
       throw new HttpError(400, 'Esta propuesta ya no acepta firmas');
     }
 
-    const dniHash = hashDni(data.dni!);
+    const dniHash = hashDni(validatedSignature.dni);
     const existingSignature = await this.signatureRepository.findByProposalAndDniHash(proposal._id, dniHash);
     if (existingSignature) {
       throw new HttpError(409, 'El ciudadano ya registró una firma para esta propuesta');
@@ -40,9 +42,9 @@ export class SignatureService {
 
     const signature = await this.signatureRepository.create({
       proposalId: proposal._id,
-      citizenName: data.citizenName!.trim(),
+      citizenName: validatedSignature.citizenName,
       dniHash,
-      email: data.email!.trim(),
+      email: validatedSignature.email,
       isValid: true
     });
 
@@ -55,19 +57,5 @@ export class SignatureService {
       signature,
       proposal: proposalAfterFreeze
     };
-  }
-
-  private validateSignatureData(data: CreateSignatureRequest): void {
-    if (!data.citizenName || !data.citizenName.trim()) {
-      throw new HttpError(400, 'El nombre del ciudadano es obligatorio');
-    }
-
-    if (!data.dni || !/^\d{8}$/.test(data.dni.trim())) {
-      throw new HttpError(400, 'El DNI debe tener 8 dígitos');
-    }
-
-    if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
-      throw new HttpError(400, 'El correo electrónico no es válido');
-    }
   }
 }

@@ -4,6 +4,7 @@ import { CommentRepository } from '../repositories/CommentRepository';
 import { ResourceRepository } from '../repositories/ResourceRepository';
 import { SignatureRepository } from '../repositories/SignatureRepository';
 import { getSignatureLimit } from '../utils/config';
+import { ProposalFactory } from '../patterns/creational/factory/ProposalFactory';
 import { HttpError } from '../utils/httpError';
 
 export interface CreateProposalRequest {
@@ -20,19 +21,21 @@ export class ProposalService {
   private commentRepository = new CommentRepository();
   private resourceRepository = new ResourceRepository();
   private signatureRepository = new SignatureRepository();
+  private proposalFactory = new ProposalFactory();
 
   async create(data: CreateProposalRequest) {
     this.validateCreateData(data);
 
-    return this.proposalRepository.create({
-      title: data.title!.trim(),
-      author: data.author!.trim(),
-      summary: data.summary!.trim(),
-      legalText: data.legalText!.trim(),
-      category: data.category!.trim(),
-      proposalType: data.proposalType!.trim(),
-      signatureLimit: getSignatureLimit()
+    const proposalData = this.proposalFactory.create({
+      title: data.title!,
+      author: data.author!,
+      summary: data.summary!,
+      legalText: data.legalText!,
+      category: data.category!,
+      proposalType: data.proposalType!
     });
+
+    return this.proposalRepository.create(proposalData);
   }
 
   async list() {

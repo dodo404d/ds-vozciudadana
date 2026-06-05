@@ -1,10 +1,6 @@
 # Postman - VozCiudadana
 
-Este avance incluye la colección:
-
-```txt
-VozCiudadana_commit_02_backend.postman_collection.json
-```
+Este avance incluye una colección de pruebas mínimas para validar el backend de propuestas, firmas, comentarios, recursos, congelamiento y operaciones básicas del Panel Congreso.
 
 ## Uso recomendado
 
@@ -15,6 +11,7 @@ VozCiudadana_commit_02_backend.postman_collection.json
 5. Copiar el `_id` de la propuesta creada.
 6. Guardarlo en la variable `proposalId`.
 7. Probar firmas, comentario, recurso y congelamiento con 3 firmas.
+8. Para las rutas del Congreso, usar la variable `congressAccessToken` con el valor `demo-congreso`.
 
 El límite de demostración es:
 

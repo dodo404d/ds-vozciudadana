@@ -1,6 +1,7 @@
-import type { ApiResponse, Proposal, ProposalDetail } from '../types';
+import type { ApiResponse, LegislativeFile, Proposal, ProposalDetail } from '../types';
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000/api';
+const CONGRESS_ACCESS_TOKEN = import.meta.env.VITE_CONGRESS_ACCESS_TOKEN ?? 'demo-congreso';
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
@@ -18,6 +19,12 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   }
 
   return payload as T;
+}
+
+function congressHeaders(): HeadersInit {
+  return {
+    'x-congress-access': CONGRESS_ACCESS_TOKEN
+  };
 }
 
 export interface CreateProposalPayload {
@@ -80,6 +87,26 @@ export const api = {
     return request<ApiResponse<unknown>>(`/proposals/${proposalId}/resources`, {
       method: 'POST',
       body: JSON.stringify(payload)
+    });
+  },
+
+  async listLegislativeFiles() {
+    return request<ApiResponse<LegislativeFile[]>>('/congress/legislative-files', {
+      headers: congressHeaders()
+    });
+  },
+
+  async listCommissions() {
+    return request<ApiResponse<string[]>>('/congress/commissions', {
+      headers: congressHeaders()
+    });
+  },
+
+  async assignCommission(proposalId: string, commission: string) {
+    return request<ApiResponse<LegislativeFile>>(`/congress/proposals/${proposalId}/commission`, {
+      method: 'PATCH',
+      headers: congressHeaders(),
+      body: JSON.stringify({ commission })
     });
   }
 };

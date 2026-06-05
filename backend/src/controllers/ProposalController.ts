@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import { ProposalService } from '../services/ProposalService';
+import { CitizenProposalFacade } from '../patterns/structural/facade/CitizenProposalFacade';
 import { getErrorResponse } from '../utils/httpError';
 
 export class ProposalController {
-  private proposalService = new ProposalService();
+  private citizenProposalFacade = new CitizenProposalFacade();
 
   create = async (req: Request, res: Response): Promise<void> => {
     try {
-      const proposal = await this.proposalService.create(req.body);
+      const proposal = await this.citizenProposalFacade.createProposal(req.body);
       res.status(201).json({
         message: 'Propuesta registrada correctamente',
         data: proposal
@@ -20,7 +20,7 @@ export class ProposalController {
 
   list = async (_req: Request, res: Response): Promise<void> => {
     try {
-      const proposals = await this.proposalService.list();
+      const proposals = await this.citizenProposalFacade.listProposals();
       res.json({ data: proposals });
     } catch (error) {
       const { statusCode, message } = getErrorResponse(error);
@@ -30,7 +30,7 @@ export class ProposalController {
 
   detail = async (req: Request, res: Response): Promise<void> => {
     try {
-      const proposalDetail = await this.proposalService.detail(String(req.params.id));
+      const proposalDetail = await this.citizenProposalFacade.getProposalDetail(String(req.params.id));
       res.json({ data: proposalDetail });
     } catch (error) {
       const { statusCode, message } = getErrorResponse(error);

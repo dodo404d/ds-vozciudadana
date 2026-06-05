@@ -1,4 +1,5 @@
 export type ProposalStatus = 'ACTIVA' | 'CONGELADA' | 'DERIVADA_COMISION';
+export type LegislativeFileStatus = 'PENDIENTE_DERIVACION' | 'DERIVADA_COMISION';
 
 export interface Proposal {
   _id: string;
@@ -40,6 +41,22 @@ export interface ProposalDetail {
   comments: CommentItem[];
   resources: ResourceItem[];
   signaturesCount: number;
+}
+
+export interface LegislativeFile {
+  _id: string;
+  proposalId: string;
+  proposalTitle: string;
+  author: string;
+  signatureCount: number;
+  commentCount: number;
+  resourceCount: number;
+  hashExpediente: string;
+  frozenAt: string;
+  commissionAssigned?: string;
+  status: LegislativeFileStatus;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ApiResponse<T> {
